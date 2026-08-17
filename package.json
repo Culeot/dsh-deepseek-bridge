@@ -1,0 +1,34 @@
+{
+  "name": "dsh-deepseek-bridge",
+  "version": "0.1.0",
+  "description": "让 DSH agent 自动向 DeepSeek 网页端 V4 Pro 提问,获取架构方案后回来执行",
+  "main": "plugin.js",
+  "files": [
+    "plugin.js",
+    "cordis.patch.yml",
+    "RULES.md",
+    "PROMPT_TEMPLATE.md",
+    "README.md",
+    "src/**/*.js",
+    "scripts/**/*.js",
+    "data/**/*.json"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "keywords": ["dsh", "deepseek", "bridge", "ai-collaboration", "web-automation"],
+  "author": "lihongyi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Culeot/dsh-deepseek-bridge"
+  }
+}
