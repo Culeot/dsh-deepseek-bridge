@@ -22,29 +22,17 @@ function apply(ctx) {
       schema: {
         type: 'object',
         properties: {
-          content: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                type: { type: 'string' },
-                text: { type: 'string' }
-              }
-            }
-          }
+          message: { type: 'string', required: true }
         }
       },
-      render: function(output) { return output }
+      render: function(_a, v) {
+        return [{ type: 'text', text: v.message }]
+      }
     },
-    execute: function(args) {
+    async execute(args) {
       var project = args.project || 'default'
       var question = args.question.replace(/"/g, '\\"')
-      return {
-        content: [{
-          type: 'text',
-          text: 'node src/index.js --project "' + project + '" "' + question + '"'
-        }]
-      }
+      return { message: 'node src/index.js --project "' + project + '" "' + question + '"' }
     }
   })
 
@@ -59,28 +47,17 @@ function apply(ctx) {
       schema: {
         type: 'object',
         properties: {
-          content: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                type: { type: 'string' },
-                text: { type: 'string' }
-              }
-            }
-          }
+          text: { type: 'string', required: true }
         }
       },
-      render: function(output) { return output }
-    },
-    execute: function() {
-      var list = sessions.list()
-      return {
-        content: [{
-      type: 'text',
-      text: list.length === 0 ? '暂无会话' : list.map(function(s) { return '[' + s.project + '] ' + s.url }).join('\n')
-        }]
+      render: function(_a, v) {
+        return [{ type: 'text', text: v.text }]
       }
+    },
+    async execute() {
+      var list = sessions.list()
+      var text = list.length === 0 ? '暂无会话' : list.map(function(s) { return '[' + s.project + '] ' + s.url }).join('\n')
+      return { text: text }
     }
   })
 
@@ -99,27 +76,15 @@ function apply(ctx) {
       schema: {
         type: 'object',
         properties: {
-          content: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                type: { type: 'string' },
-                text: { type: 'string' }
-              }
-            }
-          }
+          message: { type: 'string', required: true }
         }
       },
-      render: function(output) { return output }
-    },
-    execute: function(args) {
-      return {
-        content: [{
-          type: 'text',
-          text: 'node src/index.js --' + (args.dryRun ? 'dry-run ' : '') + '--run "' + args.planRef + '"'
-        }]
+      render: function(_a, v) {
+        return [{ type: 'text', text: v.message }]
       }
+    },
+    async execute(args) {
+      return { message: 'node src/index.js --' + (args.dryRun ? 'dry-run ' : '') + '--run "' + args.planRef + '"' }
     }
   })
 
