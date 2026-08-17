@@ -42,7 +42,21 @@
 
 ---
 
-## 安装 / Installation
+## 配置 / Configuration
+
+### 环境变量 / Environment Variables
+
+| 变量 | 默认值 | 说明 |
+|---|---|---|
+| `DS_AGENT_NAME` | DSH Agent | agent 名称(显示在提示词中) |
+| `DS_RUNTIME_ENV` | DSH (DeepSeek Harness) | 运行环境描述 |
+
+### 示例 / Example
+
+```bash
+# 自定义 agent 名称
+DS_AGENT_NAME="My Agent" DS_RUNTIME_ENV="本地开发环境" node src/index.js "问题"
+```
 
 ### 前提条件 / Prerequisites
 
