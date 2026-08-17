@@ -8,11 +8,11 @@
  * - JSON 解析器容错
  */
 
-// 项目上下文(自动注入)
-const PROJECT_CONTEXT = `你是 dsh-deepseek-bridge 的架构师。
+// 项目上下文(自动注入,可通过环境变量覆盖)
+const PROJECT_CONTEXT = `你是 <%= agentName %> 的架构师。
 
 当前环境:
-- 龙猫 LongCat-2.0 agent,运行在 DSH (DeepSeek Harness)
+- <%= runtimeEnv %>
 - 无 DeepSeek 官方 API key,只能通过网页端免费使用
 - 已开发:浏览器自动化操控、专家模式+深度思考、登录态保存、会话管理
 - 待开发:回答完成检测 v2、提示词模板、辩证思维引导、自动推进执行`;
@@ -33,8 +33,14 @@ function buildPrompt(question, options = {}) {
   const { 
     requireJson = true, 
     fewShot = true,
-    context = PROJECT_CONTEXT 
+    agentName = process.env.DS_AGENT_NAME || 'DSH Agent',
+    runtimeEnv = process.env.DS_RUNTIME_ENV || '运行在 DSH (DeepSeek Harness)'
   } = options;
+
+  // 填充模板变量
+  const context = PROJECT_CONTEXT
+    .replace(/<%= agentName %>/g, agentName)
+    .replace(/<%= runtimeEnv %>/g, runtimeEnv);
 
   let prompt = `${context}
 

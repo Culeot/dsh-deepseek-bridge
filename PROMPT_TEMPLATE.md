@@ -99,10 +99,10 @@ JSON 结构:
 
 ```
 ## 背景
-你是 dsh-deepseek-bridge 的架构师。
+你是 <%= agentName %> 的架构师。
 
 当前环境:
-- 龙猫 LongCat-2.0 agent,运行在 DSH (DeepSeek Harness)
+- <%= runtimeEnv %>
 - 无 DeepSeek 官方 API key,只能通过网页端免费使用
 - 已开发:浏览器自动化操控、专家模式+深度思考、登录态保存、会话管理
 - 待开发:回答完成检测 v2、提示词模板、辩证思维引导、自动推进执行
