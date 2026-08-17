@@ -1,0 +1,35 @@
+{
+"alternatives": [
+{
+"name": "requests + BeautifulSoup",
+"pros": ["依赖轻量，安装快", "适合静态HTML页面解析", "代码简单，易于维护"],
+"cons": ["无法执行JavaScript，动态渲染页面会漏数据", "需要手动处理编码、重定向、Cookie", "遇到严格反爬容易被识别"],
+"cost": "低，仅需安装两个Python库",
+"risk": "目标网站改版或反爬策略升级导致解析失败"
+},
+{
+"name": "Playwright 浏览器自动化",
+"pros": ["能渲染JavaScript，适合动态页面", "模拟真实浏览器，可处理复杂交互", "支持等待元素加载，稳定性较好"],
+"cons": ["依赖庞大，需下载浏览器驱动", "资源占用高，运行速度慢", "安装和配置复杂，维护成本高"],
+"cost": "中，需要额外下载Chromium内核，约100MB以上",
+"risk": "浏览器版本升级或驱动不匹配导致运行失败"
+}
+],
+"comparison": "requests + BeautifulSoup 方案轻量高效，适合大多数静态网页；Playwright 功能强但重量级，适合动态渲染和复杂交互场景。在简单爬虫需求下，优先选择轻量方案。",
+"recommendation": "requests + BeautifulSoup",
+"reasoning": "简单爬虫通常只需抓取静态HTML，requests + BeautifulSoup足以完成任务，且资源占用低、部署简单，符合龙猫agent的轻量执行环境。但如果目标网站内容完全由JavaScript异步加载、需要登录态、存在验证码或严格反爬，该方案会失败，此时需切换到Playwright方案。",
+"execution_plan": [
+{"step": 1, "action": "创建项目目录", "command": "mkdir -p crawler_simple", "verify": "test -d crawler_simple && echo 'dir exists'"},
+{"step": 2, "action": "创建Python虚拟环境", "command": "python3 -m venv crawler_simple/.venv", "verify": "test -x crawler_simple/.venv/bin/python && echo 'venv ok'"},
+{"step": 3, "action": "安装requests和beautifulsoup4依赖", "command": "crawler_simple/.venv/bin/pip install requests beautifulsoup4", "verify": "crawler_simple/.venv/bin/python -c 'import requests, bs4; print(\"ok\")'"},
+{"step": 4, "action": "编写基础爬虫脚本", "command": "cat > crawler_simple/crawler.py <<'EOF'\nimport requests\nfrom bs4 import BeautifulSoup\n\nurl = 'https://example.com'\nresp = requests.get(url, timeout=10)\nresp.raise_for_status()\nsoup = BeautifulSoup(resp.text, 'html.parser')\nprint(soup.title.string)\nEOF", "verify": "crawler_simple/.venv/bin/python -m py_compile crawler_simple/crawler.py && echo 'compile ok'"},
+{"step": 5, "action": "运行爬虫脚本", "command": "crawler_simple/.venv/bin/python crawler_simple/crawler.py", "verify": "crawler_simple/.venv/bin/python crawler_simple/crawler.py | grep -q 'Example Domain' && echo 'output ok'"}
+],
+"rollback": "停止进程，删除 crawler_simple 目录（删除前需人工确认，避免误删其他文件）",
+"risks": [
+"目标网站反爬导致IP封禁或验证码拦截",
+"网站改版导致选择器失效",
+"未遵守robots.txt或服务条款引发法律风险",
+"网络不稳定导致请求超时或数据不完整"
+]
+}
