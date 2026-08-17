@@ -3,3 +3,19 @@ node_modules/
 *.log
 .DS_Store
 test-response.json
+
+# 敏感数据
+data/auth.json
+data/sessions.json
+
+# 测试/探索脚本(不发布)
+scripts/auto-detect.js
+scripts/explore-detail.js
+scripts/explore-page.js
+scripts/record-state.js
+
+# 测试目录
+runs/
+crawler_simple/
+-p/
+config/
