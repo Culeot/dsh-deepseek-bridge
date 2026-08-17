@@ -1,29 +1,8 @@
-# DSH DeepSeek Bridge 插件配置
-# 自动向 DeepSeek 网页端 V4 Pro 提问并执行方案
-
-id: deepseek-bridge
-name: DeepSeek Bridge
-description: 让 DSH agent 自动向 DeepSeek 网页端提问,获取方案后执行
-version: 0.1.0
-
-# 配置项
-config:
-  deepseekUrl:
-    type: string
-    default: https://chat.deepseek.com/
-    description: DeepSeek 网页端 URL
-
-  defaultTimeout:
-    type: number
-    default: 120000
-    description: 提问超时时间(毫秒)
-
-  headless:
-    type: boolean
-    default: false
-    description: 是否隐藏浏览器窗口
-
-  requireJson:
-    type: boolean
-    default: true
-    description: 是否要求 V4 输出 JSON 格式
+- insert:
+    - id: deepseek-bridge
+      name: dsh-deepseek-bridge
+      config:
+        deepseekUrl: https://chat.deepseek.com/
+        defaultTimeout: 120000
+        headless: false
+        requireJson: true
