@@ -1,6 +1,6 @@
 {
   "name": "dsh-deepseek-bridge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "让 DSH agent 自动向 DeepSeek 网页端 V4 Pro 提问,获取架构方案后回来执行",
   "main": "plugin.js",
   "files": [
@@ -24,7 +24,13 @@
       "patch": "./cordis.patch.yml"
     }
   },
-  "keywords": ["dsh", "deepseek", "bridge", "ai-collaboration", "web-automation"],
+  "keywords": [
+    "dsh",
+    "deepseek",
+    "bridge",
+    "ai-collaboration",
+    "web-automation"
+  ],
   "author": "lihongyi",
   "license": "MIT",
   "repository": {
